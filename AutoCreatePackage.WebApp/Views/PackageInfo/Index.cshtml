@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "查看软件包信息";
+}
+<br />
+
+<div class="panel panel-primary">
+    <div class="panel-heading"><h4>查看软件包信息</h4></div>
+    <div class="panel-body">
+        <div class="pull-left">
+            @Html.ActionLink("新增", "AddPackageInfo", "PackageInfo", null, new { data_modal = "", id = "addLink", @class = "btn btn-primary btn-sm" })
+        </div>
+        <div class="pull-right">
+            <input id="search_content" type="text" style="border-radius: 0.5em" placeholder="软件包名字" />
+            <span id="search" class="btn-sm glyphicon glyphicon-search" style="cursor: pointer"></span>
+            每页显示:<select id="pageSizeS" class="selectpicker" style="border-radius: 1em"><option value='5'>5</option><option value='10'>10</option><option value='15'>15</option></select>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="width:91px">软件包编号</th>
+                    <th>软件包名字</th>
+                    <th style="width:125px">软件包当前状态</th>
+                    <th style="width:125px">软件包当前版本</th>
+                    <th>上次检查更新时间</th>
+                    <th>软件包上次更新时间 <span id="sortByUpdateTime" class="glyphicon glyphicon-sort-by-attributes-alt" style="cursor: pointer" data-flag="0"></span></th>
+                    <th style="width:141px">选项</th>
+                </tr>
+            </thead>
+            <tbody id="p_tb"></tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <nav>
+            <ul class="pager">
+                <li>
+                    共<span id="allCount"></span>条记录&nbsp;
+                </li>
+                <li>
+                    当前第<span id="currentPage"></span>页&nbsp;
+                </li>
+                <li><a id="homePage">首页</a></li>
+                <li><a id="prevPage">上一页</a></li>
+                <li><a id="nextPage">下一页</a></li>
+                <li><a id="lastPage">末页</a></li>
+                <li>
+                    &nbsp; 转到第<select id="pagerS" name="select" style="border-radius: 1em"></select>页
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<!-- modal placeholder-->
+<div id="acpModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="acpModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/site/package/js")
+}

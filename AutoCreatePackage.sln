@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.Model", "AutoCreatePackage.Model\AutoCreatePackage.Model.csproj", "{66443AA6-8D1F-42CB-84AB-20496DC5B20D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.IDAL", "AutoCreatePackage.IDAL\AutoCreatePackage.IDAL.csproj", "{648A1E54-A5BA-4C56-8907-2F948B235147}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.IBLL", "AutoCreatePackage.IBLL\AutoCreatePackage.IBLL.csproj", "{74606629-D0F3-43E2-B1CF-B5191B7D65AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.DALFactory", "AutoCreatePackage.DALFactory\AutoCreatePackage.DALFactory.csproj", "{7A68C4B9-AB1F-4963-9880-F234CB2CB128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.DAL", "AutoCreatePackage.DAL\AutoCreatePackage.DAL.csproj", "{8E243667-7773-4210-BB1C-4F47FFECEE61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.BLL", "AutoCreatePackage.BLL\AutoCreatePackage.BLL.csproj", "{CE63782E-C9E1-4496-9714-ED99EB67B811}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.WebApp", "AutoCreatePackage.WebApp\AutoCreatePackage.WebApp.csproj", "{16C73EC6-8B94-4A5E-ACB9-26009812E09C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCreatePackage.Tool", "AutoCreatePackage.Tool\AutoCreatePackage.Tool.csproj", "{2B64650D-C3FF-4965-BE6C-5F09A51ED767}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://bluefirerayli.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AutoCreatePackage.BLL\\AutoCreatePackage.BLL.csproj
+		SccProjectName1 = AutoCreatePackage.BLL
+		SccLocalPath1 = AutoCreatePackage.BLL
+		SccProjectUniqueName2 = AutoCreatePackage.DAL\\AutoCreatePackage.DAL.csproj
+		SccProjectName2 = AutoCreatePackage.DAL
+		SccLocalPath2 = AutoCreatePackage.DAL
+		SccProjectUniqueName3 = AutoCreatePackage.DALFactory\\AutoCreatePackage.DALFactory.csproj
+		SccProjectName3 = AutoCreatePackage.DALFactory
+		SccLocalPath3 = AutoCreatePackage.DALFactory
+		SccProjectUniqueName4 = AutoCreatePackage.IBLL\\AutoCreatePackage.IBLL.csproj
+		SccProjectName4 = AutoCreatePackage.IBLL
+		SccLocalPath4 = AutoCreatePackage.IBLL
+		SccProjectUniqueName5 = AutoCreatePackage.IDAL\\AutoCreatePackage.IDAL.csproj
+		SccProjectName5 = AutoCreatePackage.IDAL
+		SccLocalPath5 = AutoCreatePackage.IDAL
+		SccProjectUniqueName6 = AutoCreatePackage.Model\\AutoCreatePackage.Model.csproj
+		SccProjectName6 = AutoCreatePackage.Model
+		SccLocalPath6 = AutoCreatePackage.Model
+		SccProjectUniqueName7 = AutoCreatePackage.WebApp\\AutoCreatePackage.WebApp.csproj
+		SccProjectName7 = AutoCreatePackage.WebApp
+		SccLocalPath7 = AutoCreatePackage.WebApp
+		SccProjectUniqueName8 = AutoCreatePackage.Tool\\AutoCreatePackage.Tool.csproj
+		SccProjectName8 = AutoCreatePackage.Tool
+		SccLocalPath8 = AutoCreatePackage.Tool
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66443AA6-8D1F-42CB-84AB-20496DC5B20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66443AA6-8D1F-42CB-84AB-20496DC5B20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66443AA6-8D1F-42CB-84AB-20496DC5B20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66443AA6-8D1F-42CB-84AB-20496DC5B20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{648A1E54-A5BA-4C56-8907-2F948B235147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648A1E54-A5BA-4C56-8907-2F948B235147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648A1E54-A5BA-4C56-8907-2F948B235147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648A1E54-A5BA-4C56-8907-2F948B235147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74606629-D0F3-43E2-B1CF-B5191B7D65AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74606629-D0F3-43E2-B1CF-B5191B7D65AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74606629-D0F3-43E2-B1CF-B5191B7D65AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74606629-D0F3-43E2-B1CF-B5191B7D65AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A68C4B9-AB1F-4963-9880-F234CB2CB128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A68C4B9-AB1F-4963-9880-F234CB2CB128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A68C4B9-AB1F-4963-9880-F234CB2CB128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A68C4B9-AB1F-4963-9880-F234CB2CB128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E243667-7773-4210-BB1C-4F47FFECEE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E243667-7773-4210-BB1C-4F47FFECEE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E243667-7773-4210-BB1C-4F47FFECEE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E243667-7773-4210-BB1C-4F47FFECEE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE63782E-C9E1-4496-9714-ED99EB67B811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE63782E-C9E1-4496-9714-ED99EB67B811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE63782E-C9E1-4496-9714-ED99EB67B811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE63782E-C9E1-4496-9714-ED99EB67B811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C73EC6-8B94-4A5E-ACB9-26009812E09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C73EC6-8B94-4A5E-ACB9-26009812E09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C73EC6-8B94-4A5E-ACB9-26009812E09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C73EC6-8B94-4A5E-ACB9-26009812E09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B64650D-C3FF-4965-BE6C-5F09A51ED767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B64650D-C3FF-4965-BE6C-5F09A51ED767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B64650D-C3FF-4965-BE6C-5F09A51ED767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B64650D-C3FF-4965-BE6C-5F09A51ED767}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

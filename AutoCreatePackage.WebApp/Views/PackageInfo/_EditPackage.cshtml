@@ -1,0 +1,64 @@
+﻿@model AutoCreatePackage.Model.Package
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">编辑软件包信息</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PackageStatus)
+            @Html.HiddenFor(model => model.LastCheckDate)
+            @Html.HiddenFor(model => model.PackageUpdateTime)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageId, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageId)
+                    @Html.ValidationMessageFor(model => model.PackageId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageName, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageName)
+                    @Html.ValidationMessageFor(model => model.PackageName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageDownLoadUrl, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageDownLoadUrl)
+                    @Html.ValidationMessageFor(model => model.PackageDownLoadUrl)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageXPath, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageXPath)
+                    @Html.ValidationMessageFor(model => model.PackageXPath)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageCurrentVersion, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageCurrentVersion)
+                    @Html.ValidationMessageFor(model => model.PackageCurrentVersion)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">取消</button>
+        <input class="btn btn-primary" type="submit" value="保存" />
+    </div>
+}

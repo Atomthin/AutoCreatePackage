@@ -1,0 +1,15 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="acpModalLabel">删除</h4>
+</div>
+<div class="modal-body">
+确认删除么？此操作不可撤销！
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">取消</button>
+        <input class="btn btn-danger" type="submit" value="删除" />
+    </div>
+}

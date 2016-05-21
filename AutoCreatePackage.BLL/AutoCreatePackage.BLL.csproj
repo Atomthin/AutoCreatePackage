@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE63782E-C9E1-4496-9714-ED99EB67B811}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCreatePackage.BLL</RootNamespace>
+    <AssemblyName>AutoCreatePackage.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="PackageInfoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCreatePackage.DALFactory\AutoCreatePackage.DALFactory.csproj">
+      <Project>{7a68c4b9-ab1f-4963-9880-f234cb2cb128}</Project>
+      <Name>AutoCreatePackage.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoCreatePackage.IBLL\AutoCreatePackage.IBLL.csproj">
+      <Project>{74606629-d0f3-43e2-b1cf-b5191b7d65ab}</Project>
+      <Name>AutoCreatePackage.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoCreatePackage.IDAL\AutoCreatePackage.IDAL.csproj">
+      <Project>{648a1e54-a5ba-4c56-8907-2f948b235147}</Project>
+      <Name>AutoCreatePackage.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoCreatePackage.Model\AutoCreatePackage.Model.csproj">
+      <Project>{66443aa6-8d1f-42cb-84ab-20496dc5b20d}</Project>
+      <Name>AutoCreatePackage.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoCreatePackage.Tool\AutoCreatePackage.Tool.csproj">
+      <Project>{2b64650d-c3ff-4965-be6c-5f09a51ed767}</Project>
+      <Name>AutoCreatePackage.Tool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

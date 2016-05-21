@@ -1,0 +1,54 @@
+﻿@model AutoCreatePackage.WebApp.Models.PackageViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="acpModalLabel">添加软件包信息</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageId, new { htmlAttributes = new { @placeholder = "软件包编号", @class = "form-control", @id = "p_packageId", name = "PackageId" } })
+                    @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageName, new { htmlAttributes = new { @placeholder = "软件包名字", @class = "form-control", name = "PackageName" } })
+                    @Html.ValidationMessageFor(model => model.PackageName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageDownLoadUrl, new { htmlAttributes = new { @placeholder = "软件包下载路径", @class = "form-control", name = "PackageDownLoadUrl" } })
+                    @Html.ValidationMessageFor(model => model.PackageDownLoadUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageXPath, new { htmlAttributes = new { @placeholder = "软件包的XPath", @class = "form-control", name = "PackageXPath" } })
+                    @Html.ValidationMessageFor(model => model.PackageXPath, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageCurrentVersion, new { htmlAttributes = new { @placeholder = "软件包当前版本", @class = "form-control", name = "PackageCurrentVersion" } })
+                    @Html.ValidationMessageFor(model => model.PackageCurrentVersion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <input class="btn btn-primary" id="p_btn_add" type="submit" value="新增" />
+    </div>
+}
