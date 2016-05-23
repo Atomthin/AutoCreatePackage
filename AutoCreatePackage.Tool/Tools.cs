@@ -1,6 +1,5 @@
 ﻿using HtmlAgilityPack;
 using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.GZip;
 using System;
 using System.IO;
 using System.Linq;
@@ -85,6 +84,7 @@ namespace AutoCreatePackage.Tool
         /// <returns></returns>
         private bool CreateLatestVersionPackage(string latestPackagePath,string currentPackagePath, string configJson)
         {
+            
             return false;
 
 
