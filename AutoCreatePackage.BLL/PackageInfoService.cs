@@ -14,7 +14,7 @@ namespace AutoCreatePackage.BLL
 
         public string DownloadPackage(string urlAddress, string savePath, string packageName)
         {
-            DownloadTool dlt = new DownloadTool();
+            Tools dlt = new Tools();
             string packageSavePath = dlt.DownloadFile(urlAddress, savePath, packageName);
             return packageSavePath;
         }
