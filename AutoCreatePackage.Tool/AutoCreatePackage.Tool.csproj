@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPackAndUnPack.cs" />
+    <Compile Include="PackAndUnPack.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="GetDownloadUrlFromAttr.cs" />
     <Compile Include="GetHtmlNode.cs" />

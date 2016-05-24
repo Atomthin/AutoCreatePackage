@@ -26,7 +26,7 @@ namespace AutoCreatePackage.Tool
         /// <param name="packageXPath"></param>
         /// <param name="currentVersion"></param>
         /// <returns></returns>
-        private bool CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
+        private string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
         {
             HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId, packageXPath);
             string temp = node.SelectSingleNode(packageXPath).InnerHtml;
@@ -34,13 +34,13 @@ namespace AutoCreatePackage.Tool
             Match m = Regex.Match(temp, pattern);
             if (!m.Success)
             {
-                return false;
+                return null;
             }
             if (!string.Equals(m.Value, currentVersion, StringComparison.InvariantCultureIgnoreCase))
             {
-                return false;
+                return m.Value;
             }
-            return true;
+            return null;
         }
 
         /// <summary>
@@ -50,14 +50,14 @@ namespace AutoCreatePackage.Tool
         /// <param name="savePath"></param>
         /// <param name="packageName"></param>
         /// <returns></returns>
-        public string DownloadFile(string urlAddress, string savePath, string packageName)
+        public string DownloadFile(string urlAddress, string savePath, string packageName,string latestVersion)
         {
             string fileSavePath = null;
             string fileSaveFolderPath = null;
             using (WebClient webClient = new WebClient())
             {
                 Uri URL = urlAddress.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("http://" + urlAddress);
-                fileSaveFolderPath = string.Format(@"{0}\{1}\{2}", savePath, packageName, Regex.Replace(DateTime.Now.ToShortDateString(), @"\D+", ""));
+                fileSaveFolderPath = string.Format(@"{0}\{1}\{2}", savePath, packageName, latestVersion);
                 if (!Directory.Exists(fileSaveFolderPath))
                 {
                     Directory.CreateDirectory(fileSaveFolderPath);
