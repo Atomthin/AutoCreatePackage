@@ -160,18 +160,5 @@ namespace AutoCreatePackage.WebApp.Controllers
         }
         #endregion
 
-        public ActionResult DownLoad()
-        {
-            if (packageInfoService.DownloadPackage("http://www.wordpress.org/latest.zip", HostingEnvironment.MapPath("~/Package"), "WordPress") != null)
-            {
-                return Content("OK");
-            }
-            else
-            {
-                return Content("Fail");
-            }
-            
-        }
-
     }
 }

@@ -50,7 +50,7 @@ namespace AutoCreatePackage.Tool
         /// <param name="savePath"></param>
         /// <param name="packageName"></param>
         /// <returns></returns>
-        public string DownloadFile(string urlAddress, string savePath, string packageName,string latestVersion)
+        private string DownloadFile(string urlAddress, string savePath, string packageName, string latestVersion)
         {
             string fileSavePath = null;
             string fileSaveFolderPath = null;
@@ -68,9 +68,9 @@ namespace AutoCreatePackage.Tool
                     webClient.DownloadFile(URL, fileSavePath);
                     return fileSavePath;
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    return null;
+                    throw new Exception(e.Message);
                 }
 
             }
@@ -82,9 +82,9 @@ namespace AutoCreatePackage.Tool
         /// <param name="latestPackagePath"></param>
         /// <param name="configJson"></param>
         /// <returns></returns>
-        private bool CreateLatestVersionPackage(string latestPackagePath,string currentPackagePath, string configJson)
+        private bool CreateLatestVersionPackage(string latestPackagePath, string currentPackagePath, string configJson)
         {
-            
+
             return false;
 
 

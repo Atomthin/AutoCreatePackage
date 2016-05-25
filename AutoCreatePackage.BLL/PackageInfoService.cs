@@ -11,12 +11,5 @@ namespace AutoCreatePackage.BLL
         {
             CurrentDal = this.CurrentDBSession.PackageInfoDal;
         }
-
-        public string DownloadPackage(string urlAddress, string savePath, string packageName)
-        {
-            Tools dlt = new Tools();
-            string packageSavePath = dlt.DownloadFile(urlAddress, savePath, packageName);
-            return packageSavePath;
-        }
     }
 }

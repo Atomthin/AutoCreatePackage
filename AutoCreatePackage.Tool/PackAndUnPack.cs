@@ -1,108 +1,78 @@
 ﻿using ICSharpCode.SharpZipLib.Tar;
-using ICSharpCode.SharpZipLib.Zip;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoCreatePackage.Tool
 {
     public class PackAndUnPack : IPackAndUnPack
     {
-        public string Zip(string filePath, string zipFolderDir)
+        #region Create zip
+        /// <summary>
+        /// Pack file to zip package.
+        /// </summary>
+        /// <param name="filePath">File path which need to pack.</param>
+        /// <returns></returns>
+        public string Zip(string filePath)
         {
-            string packFilePath = null;
             try
             {
-                if (!Directory.Exists(zipFolderDir))
+                if (!Directory.Exists(filePath))
                 {
-                    Directory.CreateDirectory(zipFolderDir);
+                    return null;
                 }
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
+                string packFilePath = string.Format(@"{0}\{1}.zip", filePath.Substring(0, filePath.LastIndexOf(@"\")), Path.GetFileName(filePath));
+                ZipFile.CreateFromDirectory(filePath, packFilePath);
+                return packFilePath;
 
-                FastZip fz = new FastZip();
-                fz.CreateEmptyDirectories = true;
-                fz.CreateZip(filePath, zipFolderDir, true, "");
-                packFilePath = string.Format(@"{0}\{1}.zip", zipFolderDir, zipFolderDir.Substring(zipFolderDir.LastIndexOf(@"\") + 1, zipFolderDir.Length));
             }
             catch (Exception e)
             {
-                packFilePath = null;
                 throw new Exception(e.Message);
             }
-            return packFilePath;
-
         }
+        #endregion
 
-        public string UnZip(string zipPath, string unZipDir)
+        #region Extract zip
+        /// <summary>
+        /// Extract zip package
+        /// </summary>
+        /// <param name="zipPath">The zip package file path.</param>
+        /// <returns></returns>
+        public string UnZip(string zipPath)
         {
-            string unZipFolderPath = null;
             try
             {
                 if (!File.Exists(zipPath))
                 {
                     return null;
                 }
-                if (!Directory.Exists(unZipDir))
-                {
-                    Directory.CreateDirectory(unZipDir);
-                }
-                FileStream fr = new FileStream(zipPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                ZipInputStream s = new ZipInputStream(fr);
-                ZipEntry theEntry;
-                while ((theEntry = s.GetNextEntry()) != null)
-                {
-                    string directoryName = Path.GetDirectoryName(theEntry.Name);
-                    string fileName = Path.GetFileName(theEntry.Name);
+                string extractPath = zipPath.Substring(0, zipPath.LastIndexOf(@"\"));
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+                return extractPath;
 
-                    if (directoryName != String.Empty)
-                    {
-                        Directory.CreateDirectory(unZipDir + directoryName);
-                    }
-                    if (fileName != String.Empty)
-                    {
-                        unZipFolderPath = unZipDir + theEntry.Name;
-                        FileStream streamWriter = File.Create(unZipFolderPath);
-                        int size = 2048;
-                        byte[] data = new byte[2048];
-                        while (true)
-                        {
-                            size = s.Read(data, 0, data.Length);
-                            if (size > 0)
-                            {
-                                streamWriter.Write(data, 0, size);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        streamWriter.Close();
-                    }
-                }
-                s.Close();
-                fr.Close();
             }
             catch (Exception e)
             {
-                unZipFolderPath = null;
                 throw new Exception(e.Message);
             }
-            return unZipFolderPath;
-
         }
+        #endregion
 
-        public string UnGZ(string gzPath, string unPackDir)
+        #region Extract gz
+        /// <summary>
+        /// Extract gz package
+        /// </summary>
+        /// <param name="gzPath">The gz package file path.</param>
+        /// <returns></returns>
+        public string UnGZ(string gzPath)
         {
-            string unGZFolderPath = null;
             try
             {
+                if (!File.Exists(gzPath))
+                {
+                    return null;
+                }
                 FileInfo fileInfo = new FileInfo(gzPath);
                 using (FileStream originalFileStream = fileInfo.OpenRead())
                 {
@@ -114,34 +84,44 @@ namespace AutoCreatePackage.Tool
                         using (GZipStream decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress))
                         {
                             decompressionStream.CopyTo(decompressedFileStream);
-                            unGZFolderPath = gzPath.Substring(0, gzPath.LastIndexOf(@"\") + 1);
+                            return newFileName;
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                unGZFolderPath = null;
                 throw new Exception(e.Message);
             }
-            return unGZFolderPath;
         }
+        #endregion
 
-        public string UnTar(string tarPath, string unPackDir)
+        #region Extract tar
+        /// <summary>
+        /// Extract tar package
+        /// </summary>
+        /// <param name="tarPath">The tar file path.</param>
+        /// <returns></returns>
+        public string UnTar(string tarPath)
         {
-            string unTarFolderPath = null;
             try
             {
+                string strUnpackPath = null;
                 if (!File.Exists(tarPath))
                 {
                     return null;
                 }
-                if (!Directory.Exists(unPackDir))
+                string strUnpackDir = tarPath.Substring(0, tarPath.LastIndexOf('.')).Replace("/", "\\");
+                if (!strUnpackDir.EndsWith("\\"))
                 {
-                    Directory.CreateDirectory(unPackDir);
+                    strUnpackDir += "\\";
+                }
+                if (!Directory.Exists(strUnpackDir))
+                {
+                    Directory.CreateDirectory(strUnpackDir);
                 }
                 FileStream fr = new FileStream(tarPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                TarInputStream s = new ICSharpCode.SharpZipLib.Tar.TarInputStream(fr);
+                TarInputStream s = new TarInputStream(fr);
                 TarEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
@@ -149,11 +129,13 @@ namespace AutoCreatePackage.Tool
                     string fileName = Path.GetFileName(theEntry.Name);
                     if (directoryName != String.Empty)
                     {
-                        Directory.CreateDirectory(unPackDir + directoryName);
-                    }  
+                        strUnpackPath = strUnpackDir + directoryName;
+                        Directory.CreateDirectory(strUnpackPath);
+                    }
                     if (fileName != String.Empty)
                     {
-                        FileStream streamWriter = File.Create(unPackDir + theEntry.Name);
+                        FileStream streamWriter = File.Create(strUnpackDir + theEntry.Name);
+
                         int size = 2048;
                         byte[] data = new byte[2048];
                         while (true)
@@ -173,14 +155,13 @@ namespace AutoCreatePackage.Tool
                 }
                 s.Close();
                 fr.Close();
-                unTarFolderPath=
+                return strUnpackPath;
             }
             catch (Exception e)
             {
-                unTarFolderPath = null;
                 throw new Exception(e.Message);
             }
-            return unTarFolderPath;
-        }
+        } 
+        #endregion
     }
 }

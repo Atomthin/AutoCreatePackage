@@ -9,6 +9,5 @@ namespace AutoCreatePackage.IBLL
 {
     public interface IPackageInfoService : IBaseService<Package>
     {
-        string DownloadPackage(string urlAddress, string savePath, string packageName);
     }
 }
