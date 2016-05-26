@@ -5,7 +5,7 @@ using System.IO.Compression;
 
 namespace AutoCreatePackage.Tool
 {
-    public class PackAndUnPack : IPackAndUnPack
+    public class PackAndUnpack : IPackAndUnpack
     {
         #region Create zip
         /// <summary>

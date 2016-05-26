@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoCreatePackage.Tool
 {
-    public interface IPackAndUnPack
+    public interface IPackAndUnpack
     {
         string Zip(string filePath);
         string UnZip(string zipPath);

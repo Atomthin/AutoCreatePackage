@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Web.Hosting;
 
 namespace AutoCreatePackage.Tool
 {
@@ -12,14 +13,16 @@ namespace AutoCreatePackage.Tool
     public class Tools : GetHtmlNode
     {
         IGetPackageDownloadUrl getPackageDownloadUrl;
+        IPackAndUnpack packAndUnPack;
 
         public void CheckVersionAndDownload()
         {
 
         }
 
+        #region Check Package Version
         /// <summary>
-        /// 判断软件包官网版本和本地版本
+        /// CheckPackageVersion
         /// </summary>
         /// <param name="packageDownloadPageUrl"></param>
         /// <param name="htmlElementId"></param>
@@ -42,9 +45,11 @@ namespace AutoCreatePackage.Tool
             }
             return null;
         }
+        #endregion
 
+        #region Download latest package
         /// <summary>
-        /// 下载软件包方法
+        /// DownloadFile
         /// </summary>
         /// <param name="urlAddress"></param>
         /// <param name="savePath"></param>
@@ -75,20 +80,45 @@ namespace AutoCreatePackage.Tool
 
             }
         }
+        #endregion
 
+        #region Create latest version package
         /// <summary>
-        /// 创建最新的软件包
+        /// Create latest version package
         /// </summary>
         /// <param name="latestPackagePath"></param>
-        /// <param name="configJson"></param>
+        /// <param name="packageName"></param>
         /// <returns></returns>
-        private bool CreateLatestVersionPackage(string latestPackagePath, string currentPackagePath, string configJson)
+        private bool CreateLatestVersionPackage(string latestPackagePath, string packageName)
         {
+            packAndUnPack = new PackAndUnpack();
+            string extensionName = Path.GetExtension(latestPackagePath);
+            string unpackPath = null;
+            switch (extensionName)
+            {
+                case ".zip":
+                    unpackPath = packAndUnPack.UnZip(latestPackagePath);
+                    break;
+                case ".gz":
+                    string tempPath = packAndUnPack.UnGZ(latestPackagePath);
+                    unpackPath = packAndUnPack.UnTar(tempPath);
+                    break;
+            }
+            string configJsonPath=HostingEnvironment.MapPath(string.Format("~/Requirement/{0}", packageName));
+            if(File.Exists(configJsonPath))
+            {
+                return false;
+            }
+            string getConfigJson = File.ReadAllText(configJsonPath).Trim();
+
+
+            
+
+
 
             return false;
-
-
         }
+        #endregion
     }
 
 }
