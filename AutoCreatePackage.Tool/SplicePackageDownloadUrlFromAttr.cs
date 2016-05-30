@@ -11,8 +11,8 @@ namespace AutoCreatePackage.Tool
     {
         public string GetPackageDownloadUrl(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string htmlElementAttr)
         {
-            HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId, packageXPath);
-            string partialUrl = node.SelectSingleNode("//a[@class=\"button download-button button-large button-large\"]/strong").Attributes[htmlElementId].Value;
+            HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId);
+            string partialUrl = node.SelectSingleNode(packageXPath).Attributes[htmlElementAttr].Value;
             return string.Format("{0}{1}", packageDownloadPageUrl.Split('/').First(), partialUrl);
         }
     }

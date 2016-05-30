@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Hosting;
+using System.Xml;
+using Newtonsoft.Json;
 
 namespace AutoCreatePackage.Tool
 {
@@ -15,10 +17,6 @@ namespace AutoCreatePackage.Tool
         IGetPackageDownloadUrl getPackageDownloadUrl;
         IPackAndUnpack packAndUnPack;
 
-        public void CheckVersionAndDownload()
-        {
-
-        }
 
         #region Check Package Version
         /// <summary>
@@ -31,7 +29,7 @@ namespace AutoCreatePackage.Tool
         /// <returns></returns>
         private string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
         {
-            HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId, packageXPath);
+            HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId);
             string temp = node.SelectSingleNode(packageXPath).InnerHtml;
             string pattern = @"(\d+(\.\d+)+)";
             Match m = Regex.Match(temp, pattern);
@@ -88,36 +86,71 @@ namespace AutoCreatePackage.Tool
         /// </summary>
         /// <param name="latestPackagePath"></param>
         /// <param name="packageName"></param>
+        /// <param name="packageLatestVersion"></param>
         /// <returns></returns>
-        private bool CreateLatestVersionPackage(string latestPackagePath, string packageName)
+        private string CreateLatestVersionPackage(string latestPackagePath, string packageName, string packageLatestVersion)
         {
-            packAndUnPack = new PackAndUnpack();
-            string extensionName = Path.GetExtension(latestPackagePath);
-            string unpackPath = null;
-            switch (extensionName)
+            try
             {
-                case ".zip":
-                    unpackPath = packAndUnPack.UnZip(latestPackagePath);
-                    break;
-                case ".gz":
-                    string tempPath = packAndUnPack.UnGZ(latestPackagePath);
-                    unpackPath = packAndUnPack.UnTar(tempPath);
-                    break;
+                packAndUnPack = new PackAndUnpack();
+                string extensionName = Path.GetExtension(latestPackagePath);
+                string unpackPath = null;
+                switch (extensionName)
+                {
+                    case ".zip":
+                        unpackPath = packAndUnPack.UnZip(latestPackagePath);
+                        break;
+                    case ".gz":
+                        string tempPath = packAndUnPack.UnGZ(latestPackagePath);
+                        unpackPath = packAndUnPack.UnTar(tempPath);
+                        break;
+                }
+                string configJsonPath = HostingEnvironment.MapPath(string.Format("~/Requirement/{0}/config.json", packageName));
+                if (File.Exists(configJsonPath))
+                {
+                    return null;
+                }
+                string getConfigJson = File.ReadAllText(configJsonPath).Trim();
+                PackageConfig jObject = JsonConvert.DeserializeObject<PackageConfig>(getConfigJson);
+                if (jObject.replaceFile.Count > 0)
+                {
+                    foreach (var item in jObject.replaceFile)
+                    {
+                        File.Copy(Path.Combine(unpackPath, item.oldFilePath), Path.Combine(unpackPath, item.newFilePath), true);
+                    }
+                }
+                if (jObject.modifyFile.Count > 0)
+                {
+                    foreach (var item in jObject.modifyFile)
+                    {
+                        ModifyFile(Path.Combine(unpackPath, item.filePath), Path.Combine(unpackPath, item.xPath), item.attName, item.modifyContent);
+                    }
+                }
+                return packAndUnPack.Zip(unpackPath, packageLatestVersion);
             }
-            string configJsonPath=HostingEnvironment.MapPath(string.Format("~/Requirement/{0}", packageName));
-            if(File.Exists(configJsonPath))
+            catch (Exception)
             {
-                return false;
+                return null;
             }
-            string getConfigJson = File.ReadAllText(configJsonPath).Trim();
-
-
-            
-
-
-
-            return false;
         }
+        #endregion
+
+        #region Modify File
+        /// <summary>
+        /// ModifyFile
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="xPath"></param>
+        /// <param name="attName"></param>
+        /// <param name="modifyContent"></param>
+        private void ModifyFile(string filePath, string xPath, string attName, string modifyContent)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(filePath);
+            XmlNode node = xmlDoc.SelectSingleNode(xPath);
+            node.Attributes[attName].Value = modifyContent;
+            xmlDoc.Save(filePath);
+        } 
         #endregion
     }
 

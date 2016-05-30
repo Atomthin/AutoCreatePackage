@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPackAndUnpack.cs" />
+    <Compile Include="PackageConfig.cs" />
     <Compile Include="PackAndUnpack.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="GetDownloadUrlFromAttr.cs" />

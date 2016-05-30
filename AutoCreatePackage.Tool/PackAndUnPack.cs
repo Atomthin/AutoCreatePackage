@@ -13,7 +13,7 @@ namespace AutoCreatePackage.Tool
         /// </summary>
         /// <param name="filePath">File path which need to pack.</param>
         /// <returns></returns>
-        public string Zip(string filePath)
+        public string Zip(string filePath, string packageLatestVersion)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace AutoCreatePackage.Tool
                 {
                     return null;
                 }
-                string packFilePath = string.Format(@"{0}\{1}.zip", filePath.Substring(0, filePath.LastIndexOf(@"\")), Path.GetFileName(filePath));
+                string packFilePath = string.Format(@"{0}\{1}.zip", filePath.Substring(0, filePath.LastIndexOf(@"\")), Path.GetFileName(filePath) + "-" + packageLatestVersion);
                 ZipFile.CreateFromDirectory(filePath, packFilePath);
                 return packFilePath;
 
@@ -161,7 +161,7 @@ namespace AutoCreatePackage.Tool
             {
                 throw new Exception(e.Message);
             }
-        } 
+        }
         #endregion
     }
 }
