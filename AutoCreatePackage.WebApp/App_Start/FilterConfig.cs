@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using AutoCreatePackage.WebApp.Models;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AutoCreatePackage.WebApp
@@ -7,7 +8,9 @@ namespace AutoCreatePackage.WebApp
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
+            //uses log4net record log
+            filters.Add(new ACPExceptionAttribute());
         }
     }
 }

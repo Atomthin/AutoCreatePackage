@@ -1,6 +1,9 @@
-﻿using System;
+﻿using AutoCreatePackage.WebApp.Models;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -17,6 +20,32 @@ namespace AutoCreatePackage.WebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            log4net.Config.XmlConfigurator.Configure();
+            //开启一个线程，扫描异常队列。
+            ThreadPool.QueueUserWorkItem((a) =>
+            {
+                while (true)
+                {
+                    //判断一下队列中有没有数据
+                    if (ACPExceptionAttribute.ExceptionQueue.Count() > 0)
+                    {
+                        Exception ex = ACPExceptionAttribute.ExceptionQueue.Dequeue();
+                        if (ex != null)
+                        {
+                            ILog logger = LogManager.GetLogger("errorMsg");
+                            logger.Error(ex.ToString());
+                        }
+                        else
+                        {
+                            Thread.Sleep(5000);
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(5000);
+                    }
+                }
+            });
         }
     }
 }
