@@ -9,6 +9,7 @@ using System.Web.Hosting;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using System.Configuration;
 
 namespace AutoCreatePackage.Tool
 {
@@ -27,8 +28,13 @@ namespace AutoCreatePackage.Tool
         /// <param name="packageXPath"></param>
         /// <param name="currentVersion"></param>
         /// <returns></returns>
-        public string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
+        public string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion, string htmlElementAttr, string packageName, int urlType)
         {
+            string downloadUrl = string.Empty;
+            string savePath = string.Empty;
+            string latestPackagePath = string.Empty;
+            string newZipPath = string.Empty;
+            string newZipSHA1 = string.Empty;
             HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId);
             string temp = node.SelectSingleNode(packageXPath).InnerHtml;
             string pattern = @"(\d+(\.\d+)+)";
@@ -39,7 +45,23 @@ namespace AutoCreatePackage.Tool
             }
             if (!string.Equals(m.Value, currentVersion, StringComparison.InvariantCultureIgnoreCase))
             {
-                return m.Value;
+                switch (urlType)
+                {
+                    case 0:
+                        getPackageDownloadUrl = new GetDownloadUrlFromAttr();
+                        break;
+                    case 1:
+                        getPackageDownloadUrl = new SplicePackageDownloadUrlFromAttr();
+                        break;
+                }
+                downloadUrl = getPackageDownloadUrl.GetPackageDownloadUrl(packageDownloadPageUrl, htmlElementId, packageXPath, htmlElementAttr);
+                savePath = ConfigurationManager.AppSettings["packageSavePath"].ToString();
+                latestPackagePath = DownloadFile(downloadUrl, savePath, packageName, m.Value);
+                newZipPath = CreateLatestVersionPackage(latestPackagePath, packageName, m.Value);
+                newZipSHA1 = GenerateSHA1Code(newZipPath);
+                //To do. Save record to DB.
+
+                return JsonConvert.SerializeObject(new { ZipPath = newZipPath, SHA1Code = newZipSHA1 });
             }
             return null;
         }
@@ -49,23 +71,23 @@ namespace AutoCreatePackage.Tool
         /// <summary>
         /// DownloadFile
         /// </summary>
-        /// <param name="urlAddress"></param>
+        /// <param name="downloaduUrl"></param>
         /// <param name="savePath"></param>
         /// <param name="packageName"></param>
         /// <returns></returns>
-        private string DownloadFile(string urlAddress, string savePath, string packageName, string latestVersion)
+        private string DownloadFile(string downloaduUrl, string savePath, string packageName, string latestVersion)
         {
             string fileSavePath = null;
             string fileSaveFolderPath = null;
             using (WebClient webClient = new WebClient())
             {
-                Uri URL = urlAddress.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("http://" + urlAddress);
-                fileSaveFolderPath = string.Format(@"{0}\{1}\{2}", savePath, packageName, latestVersion);
+                Uri URL = downloaduUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(downloaduUrl) : new Uri("http://" + downloaduUrl);
+                fileSaveFolderPath = HostingEnvironment.MapPath(string.Format("~/{0}/{1}/{2}", savePath, packageName, latestVersion));
                 if (!Directory.Exists(fileSaveFolderPath))
                 {
                     Directory.CreateDirectory(fileSaveFolderPath);
                 }
-                fileSavePath = string.Format(@"{0}\{1}", fileSaveFolderPath, urlAddress.Split('/').Last());
+                fileSavePath = HostingEnvironment.MapPath(string.Format("{0}/{1}", fileSaveFolderPath, downloaduUrl.Split('/').Last()));
                 try
                 {
                     webClient.DownloadFile(URL, fileSavePath);
@@ -75,7 +97,6 @@ namespace AutoCreatePackage.Tool
                 {
                     throw new Exception(e.Message);
                 }
-
             }
         }
         #endregion
@@ -104,7 +125,7 @@ namespace AutoCreatePackage.Tool
                     break;
             }
             string configJsonPath = HostingEnvironment.MapPath(string.Format("~/Requirement/{0}/config.json", packageName));
-            if (File.Exists(configJsonPath))
+            if (!File.Exists(configJsonPath))
             {
                 return null;
             }
@@ -164,7 +185,7 @@ namespace AutoCreatePackage.Tool
                 hashText += (hexValue.Length == 1 ? "0" : "") + hexValue;
             }
             return hashText;
-        } 
+        }
         #endregion
     }
 
