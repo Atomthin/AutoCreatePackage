@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.IO;
 using System.Linq;

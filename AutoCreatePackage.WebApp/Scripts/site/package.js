@@ -55,7 +55,7 @@ function loadData(p, s, sf, sn) {
                             status = "<span class='glyphicon glyphicon-thumbs-down'></span><span style='color:red'> 更新失败</span>";
                             break;
                     }
-                    list += "<tr><td>" + item.PId + "</td><td>" + item.PName + "</td><td>" + status + "</td><td>" + item.PCurrentVersion + "</td><td>" + ChangeDateFormat(item.PLastCheckDate) + "</td><td>" + ChangeDateFormat(item.PUpdateTime) + "</td><td>" + options + "</td></tr><tr class='collapse' id='" + item.Id + "collapse'><div><td colspan='7'><table class='table table-bordered'><tr><th style='width:150px'>软件包下载路径：</th><td>" + item.PDownLoadUrl + "</td></tr><tr><th style='width:150px'>软件包的XPath：</th><td>" + item.PXPath + "</td></tr></table></td></div></tr>";
+                    list += "<tr><td>" + item.PId + "</td><td>" + item.PName + "</td><td>" + status + "</td><td>" + item.PCurrentVersion + "</td><td>" + ChangeDateFormat(item.PLastCheckDate) + "</td><td>" + ChangeDateFormat(item.PUpdateTime) + "</td><td>" + options + "</td></tr><tr class='collapse' id='" + item.Id + "collapse'><div><td colspan='7'><table class='table table-bordered'><tr><th style='width:150px'>软件包下载路径：</th><td>" + item.PDownLoadUrl + "</td></tr><tr><th style='width:150px'>软件包的XPath：</th><td>" + item.PXPath + "</td></tr><tr><th style='width:150px'>软件包的SHA1 Code：</th><td>" + item.PSHA1 + "</td></tr></table></td></div></tr>";
                 });
                 $("#p_tb").append(list);
                 modalInit();
