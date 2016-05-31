@@ -90,48 +90,41 @@ namespace AutoCreatePackage.Tool
         /// <returns></returns>
         private string CreateLatestVersionPackage(string latestPackagePath, string packageName, string packageLatestVersion)
         {
-            try
+            packAndUnPack = new PackAndUnpack();
+            string extensionName = Path.GetExtension(latestPackagePath);
+            string unpackPath = null;
+            switch (extensionName)
             {
-                packAndUnPack = new PackAndUnpack();
-                string extensionName = Path.GetExtension(latestPackagePath);
-                string unpackPath = null;
-                switch (extensionName)
-                {
-                    case ".zip":
-                        unpackPath = packAndUnPack.UnZip(latestPackagePath);
-                        break;
-                    case ".gz":
-                        string tempPath = packAndUnPack.UnGZ(latestPackagePath);
-                        unpackPath = packAndUnPack.UnTar(tempPath);
-                        break;
-                }
-                string configJsonPath = HostingEnvironment.MapPath(string.Format("~/Requirement/{0}/config.json", packageName));
-                if (File.Exists(configJsonPath))
-                {
-                    return null;
-                }
-                string getConfigJson = File.ReadAllText(configJsonPath).Trim();
-                PackageConfig jObject = JsonConvert.DeserializeObject<PackageConfig>(getConfigJson);
-                if (jObject.replaceFile.Count > 0)
-                {
-                    foreach (var item in jObject.replaceFile)
-                    {
-                        File.Copy(Path.Combine(unpackPath, item.oldFilePath), Path.Combine(unpackPath, item.newFilePath), true);
-                    }
-                }
-                if (jObject.modifyFile.Count > 0)
-                {
-                    foreach (var item in jObject.modifyFile)
-                    {
-                        ModifyFile(Path.Combine(unpackPath, item.filePath), Path.Combine(unpackPath, item.xPath), item.attName, item.modifyContent);
-                    }
-                }
-                return packAndUnPack.Zip(unpackPath, packageLatestVersion);
+                case ".zip":
+                    unpackPath = packAndUnPack.UnZip(latestPackagePath);
+                    break;
+                case ".gz":
+                    string tempPath = packAndUnPack.UnGZ(latestPackagePath);
+                    unpackPath = packAndUnPack.UnTar(tempPath);
+                    break;
             }
-            catch (Exception)
+            string configJsonPath = HostingEnvironment.MapPath(string.Format("~/Requirement/{0}/config.json", packageName));
+            if (File.Exists(configJsonPath))
             {
                 return null;
             }
+            string getConfigJson = File.ReadAllText(configJsonPath).Trim();
+            PackageConfig jObject = JsonConvert.DeserializeObject<PackageConfig>(getConfigJson);
+            if (jObject.replaceFile.Count > 0)
+            {
+                foreach (var item in jObject.replaceFile)
+                {
+                    File.Copy(Path.Combine(unpackPath, item.oldFilePath), Path.Combine(unpackPath, item.newFilePath), true);
+                }
+            }
+            if (jObject.modifyFile.Count > 0)
+            {
+                foreach (var item in jObject.modifyFile)
+                {
+                    ModifyFile(Path.Combine(unpackPath, item.filePath), Path.Combine(unpackPath, item.xPath), item.attName, item.modifyContent);
+                }
+            }
+            return packAndUnPack.Zip(unpackPath, packageLatestVersion);
         }
         #endregion
 
@@ -150,7 +143,7 @@ namespace AutoCreatePackage.Tool
             XmlNode node = xmlDoc.SelectSingleNode(xPath);
             node.Attributes[attName].Value = modifyContent;
             xmlDoc.Save(filePath);
-        } 
+        }
         #endregion
     }
 
