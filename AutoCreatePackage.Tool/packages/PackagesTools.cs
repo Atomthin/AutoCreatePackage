@@ -8,15 +8,15 @@ using System.Text.RegularExpressions;
 using System.Web.Hosting;
 using System.Xml;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace AutoCreatePackage.Tool
 {
 
-    public class Tools : GetHtmlNode
+    public class PackagesTools : GetHtmlNode
     {
         IGetPackageDownloadUrl getPackageDownloadUrl;
         IPackAndUnpack packAndUnPack;
-
 
         #region Check Package Version
         /// <summary>
@@ -27,7 +27,7 @@ namespace AutoCreatePackage.Tool
         /// <param name="packageXPath"></param>
         /// <param name="currentVersion"></param>
         /// <returns></returns>
-        private string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
+        public string CheckPackageVersion(string packageDownloadPageUrl, string htmlElementId, string packageXPath, string currentVersion)
         {
             HtmlNode node = this.GetHtmlNodes(packageDownloadPageUrl, htmlElementId);
             string temp = node.SelectSingleNode(packageXPath).InnerHtml;
@@ -144,6 +144,27 @@ namespace AutoCreatePackage.Tool
             node.Attributes[attName].Value = modifyContent;
             xmlDoc.Save(filePath);
         }
+        #endregion
+
+        #region Generate SHA1 Code
+        /// <summary>
+        /// GenerateSHA1Code
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private string GenerateSHA1Code(string filePath)
+        {
+            string hashText = "";
+            string hexValue = "";
+            byte[] fileData = File.ReadAllBytes(filePath);
+            byte[] hashData = SHA1.Create().ComputeHash(fileData); // SHA1 or MD5
+            foreach (byte b in hashData)
+            {
+                hexValue = b.ToString("X").ToLower(); // Lowercase for compatibility on case-sensitive systems
+                hashText += (hexValue.Length == 1 ? "0" : "") + hexValue;
+            }
+            return hashText;
+        } 
         #endregion
     }
 

@@ -57,15 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPackAndUnpack.cs" />
-    <Compile Include="PackageConfig.cs" />
-    <Compile Include="PackAndUnpack.cs" />
-    <Compile Include="Tools.cs" />
-    <Compile Include="GetDownloadUrlFromAttr.cs" />
-    <Compile Include="GetHtmlNode.cs" />
-    <Compile Include="IGetPackageDownloadUrl.cs" />
+    <Compile Include="packages\IPackAndUnpack.cs" />
+    <Compile Include="packages\PackageConfig.cs" />
+    <Compile Include="packages\PackAndUnpack.cs" />
+    <Compile Include="packages\PackagesTools.cs" />
+    <Compile Include="packages\GetDownloadUrlFromAttr.cs" />
+    <Compile Include="packages\GetHtmlNode.cs" />
+    <Compile Include="packages\IGetPackageDownloadUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplicePackageDownloadUrlFromAttr.cs" />
+    <Compile Include="packages\SplicePackageDownloadUrlFromAttr.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
