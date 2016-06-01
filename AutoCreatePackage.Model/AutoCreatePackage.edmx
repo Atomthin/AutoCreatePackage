@@ -22,6 +22,7 @@
           <Property Name="PackageSHA1Code" Type="nvarchar(max)" />
           <Property Name="LastCheckDate" Type="datetime" Nullable="false" />
           <Property Name="PackageUpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="LocalPackageDownloadPath" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PackageUpdateRecord">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="LastCheckDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PackageUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PackageSHA1Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LocalPackageDownloadPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PackageUpdateRecord">
           <Key>
@@ -82,6 +84,7 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="Db_ACPModel.Package">
               <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="LocalPackageDownloadPath" ColumnName="LocalPackageDownloadPath" />
                 <ScalarProperty Name="PackageSHA1Code" ColumnName="PackageSHA1Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />

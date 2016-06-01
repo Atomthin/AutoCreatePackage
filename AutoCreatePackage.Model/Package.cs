@@ -27,5 +27,6 @@ namespace AutoCreatePackage.Model
         public System.DateTime LastCheckDate { get; set; }
         public System.DateTime PackageUpdateTime { get; set; }
         public string PackageSHA1Code { get; set; }
+        public string LocalPackageDownloadPath { get; set; }
     }
 }
