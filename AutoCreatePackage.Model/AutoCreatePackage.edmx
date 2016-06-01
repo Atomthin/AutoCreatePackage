@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Db_ACPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Db_ACPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Package">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,10 +12,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PackageId" Type="int" Nullable="false" />
           <Property Name="PackageName" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="PackageDownLoadUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PackageDownloadPageUrl" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PackageStatus" Type="int" Nullable="false" />
-          <Property Name="PackageXPath" Type="nvarchar(max)" />
+          <Property Name="PackageXPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HtmlElementId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HtmlElementAttr" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PackageDownloadUrlType" Type="int" Nullable="false" />
           <Property Name="PackageCurrentVersion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PackageSHA1Code" Type="nvarchar(max)" />
           <Property Name="LastCheckDate" Type="datetime" Nullable="false" />
           <Property Name="PackageUpdateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -44,12 +48,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PackageId" Type="Int32" Nullable="false" />
           <Property Name="PackageName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PackageDownLoadUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PackageDownloadPageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PackageStatus" Type="Int32" Nullable="false" />
+          <Property Name="PackageXPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HtmlElementId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HtmlElementAttr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PackageDownloadUrlType" Type="Int32" Nullable="false" />
           <Property Name="PackageCurrentVersion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastCheckDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PackageUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PackageXPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PackageSHA1Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PackageUpdateRecord">
           <Key>
@@ -74,12 +82,16 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="Db_ACPModel.Package">
               <MappingFragment StoreEntitySet="Package">
-                <ScalarProperty Name="PackageXPath" ColumnName="PackageXPath" />
+                <ScalarProperty Name="PackageSHA1Code" ColumnName="PackageSHA1Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />
                 <ScalarProperty Name="PackageName" ColumnName="PackageName" />
-                <ScalarProperty Name="PackageDownLoadUrl" ColumnName="PackageDownLoadUrl" />
+                <ScalarProperty Name="PackageDownloadPageUrl" ColumnName="PackageDownloadPageUrl" />
                 <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="PackageXPath" ColumnName="PackageXPath" />
+                <ScalarProperty Name="HtmlElementId" ColumnName="HtmlElementId" />
+                <ScalarProperty Name="HtmlElementAttr" ColumnName="HtmlElementAttr" />
+                <ScalarProperty Name="PackageDownloadUrlType" ColumnName="PackageDownloadUrlType" />
                 <ScalarProperty Name="PackageCurrentVersion" ColumnName="PackageCurrentVersion" />
                 <ScalarProperty Name="LastCheckDate" ColumnName="LastCheckDate" />
                 <ScalarProperty Name="PackageUpdateTime" ColumnName="PackageUpdateTime" />

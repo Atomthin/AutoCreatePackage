@@ -27,8 +27,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-7">
-                    @Html.EditorFor(model => model.PackageDownLoadUrl, new { htmlAttributes = new { @placeholder = "软件包下载路径", @class = "form-control", name = "PackageDownLoadUrl" } })
-                    @Html.ValidationMessageFor(model => model.PackageDownLoadUrl, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.PackageDownloadPageUrl, new { htmlAttributes = new { @placeholder = "软件包下载路径", @class = "form-control", name = "PackageDownLoadUrl" } })
+                    @Html.ValidationMessageFor(model => model.PackageDownloadPageUrl, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -38,6 +38,28 @@
                     @Html.ValidationMessageFor(model => model.PackageXPath, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.HtmlElementId, new { htmlAttributes = new { @placeholder = "获取网页下载路径的Html Element Id", @class = "form-control", name = "HtmlElementId" } })
+                    @Html.ValidationMessageFor(model => model.HtmlElementId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.HtmlElementAttr, new { htmlAttributes = new { @placeholder = "获取网页下载路径的Html Element Attribute", @class = "form-control", name = "HtmlElementAttr" } })
+                    @Html.ValidationMessageFor(model => model.HtmlElementAttr, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-7">
+                    @Html.EditorFor(model => model.PackageDownloadUrlType, new { htmlAttributes = new { @placeholder = "下载路径获取方式, 0:直接获取, 1:拼接", @class = "form-control", name = "PackageDownloadUrlType" } })
+                    @Html.ValidationMessageFor(model => model.PackageDownloadUrlType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
 
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-7">

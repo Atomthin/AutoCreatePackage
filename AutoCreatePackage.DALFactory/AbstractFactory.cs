@@ -21,7 +21,6 @@ namespace AutoCreatePackage.DALFactory
         {
             string fullClassName = NameSpace + ".PackageInfoDal";
             return CreateInstance(fullClassName) as IPackageInfoDal;
-
         }
 
         private static object CreateInstance(string className)
@@ -29,6 +28,5 @@ namespace AutoCreatePackage.DALFactory
             var assembly = Assembly.Load(AssemblyPath);
             return assembly.CreateInstance(className);
         }
-
     }
 }

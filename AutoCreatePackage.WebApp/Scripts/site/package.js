@@ -38,6 +38,7 @@ function loadData(p, s, sf, sn) {
                 clearData();
                 updatePagerBar();
                 if (allCount == 0) {
+                    disablePagerBar();
                     alert("软件包未入库或软件包名字错误！");
                 }
                 var list = "";
@@ -55,7 +56,8 @@ function loadData(p, s, sf, sn) {
                             status = "<span class='glyphicon glyphicon-thumbs-down'></span><span style='color:red'> 更新失败</span>";
                             break;
                     }
-                    list += "<tr><td>" + item.PId + "</td><td>" + item.PName + "</td><td>" + status + "</td><td>" + item.PCurrentVersion + "</td><td>" + ChangeDateFormat(item.PLastCheckDate) + "</td><td>" + ChangeDateFormat(item.PUpdateTime) + "</td><td>" + options + "</td></tr><tr class='collapse' id='" + item.Id + "collapse'><div><td colspan='7'><table class='table table-bordered'><tr><th style='width:150px'>软件包下载路径：</th><td>" + item.PDownLoadUrl + "</td></tr><tr><th style='width:150px'>软件包的XPath：</th><td>" + item.PXPath + "</td></tr><tr><th style='width:150px'>软件包的SHA1 Code：</th><td>" + item.PSHA1 + "</td></tr></table></td></div></tr>";
+                    var moreInfo = "<div><td colspan='7'><table class='table table-bordered'><tr><th style='width:150px'>软件包下载路径：</th><td>" + item.PDownLoadUrl + "</td></tr><tr><th style='width:150px'>软件包的XPath：</th><td>" + item.PXPath + "</td></tr><tr><th style='width:150px'>软件包SHA1:</th><td>" + item.PSHA1Code + "</td></tr><tr><th style='width:150px'>软件包HtmlElementId:</th><td>" + item.PHtmlElementId + "</td></tr><tr><th style='width:150px'>软件包HtmlElementAttr:</th><td>" + item.PHtmlElementAttr + "</td></tr></table></td></div>";
+                    list += "<tr><td>" + item.PId + "</td><td>" + item.PName + "</td><td>" + status + "</td><td>" + item.PCurrentVersion + "</td><td>" + ChangeDateFormat(item.PLastCheckDate) + "</td><td>" + ChangeDateFormat(item.PUpdateTime) + "</td><td>" + options + "</td></tr><tr class='collapse' id='" + item.Id + "collapse'>" + moreInfo + "</tr>";
                 });
                 $("#p_tb").append(list);
                 modalInit();
@@ -71,9 +73,6 @@ function ChangeDateFormat(cellval) {
     var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
     commonTime = date.toLocaleString();
     return commonTime;
-    //var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-    //var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    //return date.getFullYear() + "-" + month + "-" + currentDate;
 }
 
 //获取每页显示大小
@@ -107,6 +106,18 @@ function updatePagerBar() {
             $("#pagerS").append("<option value ='" + i + "'>" + i + "</option>");
         }
     }
+}
+
+//禁用分页栏
+function disablePagerBar() {
+    $("#homePage").attr("style", "color:gray");
+    $("#homePage").removeAttr("href");
+    $("#prevPage").attr("style", "color:gray");
+    $("#prevPage").removeAttr("href");
+    $("#nextPage").attr("style", "color:gray");
+    $("#nextPage").removeAttr("href");
+    $("#lastPage").attr("style", "color:gray");
+    $("#lastPage").removeAttr("href");
 }
 
 //跳转页面

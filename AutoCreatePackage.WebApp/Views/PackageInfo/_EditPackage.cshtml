@@ -15,6 +15,7 @@
             @Html.HiddenFor(model => model.PackageStatus)
             @Html.HiddenFor(model => model.LastCheckDate)
             @Html.HiddenFor(model => model.PackageUpdateTime)
+            @Html.HiddenFor(model => model.PackageSHA1Code)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.PackageId, new { @class = "control-label col-md-2" })
@@ -33,10 +34,34 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.PackageDownLoadUrl, new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.PackageDownloadPageUrl, new { @class = "control-label col-md-2" })
                 <div class="col-md-offset-2 col-md-7">
-                    @Html.EditorFor(model => model.PackageDownLoadUrl)
-                    @Html.ValidationMessageFor(model => model.PackageDownLoadUrl)
+                    @Html.EditorFor(model => model.PackageDownloadPageUrl)
+                    @Html.ValidationMessageFor(model => model.PackageDownloadPageUrl)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HtmlElementId, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.HtmlElementId)
+                    @Html.ValidationMessageFor(model => model.HtmlElementId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HtmlElementAttr, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.HtmlElementAttr)
+                    @Html.ValidationMessageFor(model => model.HtmlElementAttr)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackageDownloadUrlType, new { @class = "control-label col-md-2" })
+                <div class="col-md-offset-2 col-md-7">
+                    @Html.EditorFor(model => model.PackageDownloadUrlType)
+                    @Html.ValidationMessageFor(model => model.PackageDownloadUrlType)
                 </div>
             </div>
 
