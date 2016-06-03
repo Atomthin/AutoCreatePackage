@@ -28,14 +28,23 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+    </div>
+    <div id="d_footer">
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - AutoCreatePackage</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#d_footer").css({ "position": "absolute", "bottom": "0", "left": "0", "width": "100%" });
+            $(window).resize(function () {
+                $("#d_footer").css({ "position": "absolute", "bottom": "0", "left": "0", "width": "90%" });
+            });
+        });
+    </script>
 </body>
 </html>

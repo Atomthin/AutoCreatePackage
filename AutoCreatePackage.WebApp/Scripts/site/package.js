@@ -86,6 +86,7 @@ function getPageSize() {
 //更新分页栏
 function updatePagerBar() {
     if (pageIndex == "1") {
+        $("#homePage").removeAttr("style");
         $("#prevPage").attr("style", "color:gray");
     } else {
         prevIndex = eval(pageIndex) - eval("1");
